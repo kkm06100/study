@@ -1,15 +1,11 @@
-package com.gdsc.core1;
+package com.gdsc.core1.member;
 
-import com.gdsc.core1.member.Grade;
-import com.gdsc.core1.member.Member;
-import com.gdsc.core1.member.MemberService;
-import com.gdsc.core1.member.MemberServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Core1ApplicationTests {
+class MemberTest {
 
 	@Test
 	void contextLoads() {
