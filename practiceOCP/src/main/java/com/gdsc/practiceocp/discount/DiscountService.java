@@ -5,5 +5,5 @@ import com.gdsc.practiceocp.order.Order;
 import java.lang.reflect.Member;
 
 public interface DiscountService {
-    public Order DiscountPrice(Order member);
+    public Order discountPrice(Order order);
 }
