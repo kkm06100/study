@@ -11,7 +11,7 @@ public class DiscountTest {
 
     OrderService orderService = new OrderServiceImpl();
     MemberService memberService = new MemberServiceImpl();
-    DiscountService discountService = new DiscountServiceImpl1();
+    DiscountService discountService = new DiscountServiceImpl();
 
     @Test
     public void discount(){
