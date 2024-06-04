@@ -8,9 +8,16 @@ import com.gdsc.core1.member.MemberRepository;
 import com.gdsc.core1.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository(); // 메모리에 저장하는 레포지토리
-    //private final DiscountPolicy discountPolicy = new FixDiscountPolicy(); // 고정 할인 정책
-    private DiscountPolicy discountPolicy;
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy){
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+    private final MemberRepository memberRepository;// 메모리에 저장하는 레포지토리
+    private final DiscountPolicy discountPolicy;
+
+
+
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);

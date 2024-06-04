@@ -1,5 +1,6 @@
 package com.gdsc.core1.member;
 
+import com.gdsc.core1.AppConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +11,8 @@ class MemberTest {
 	@Test
 	void contextLoads() {
 	}
-
-	MemberService memberService = new MemberServiceImpl();
+	AppConfig appConfig = new AppConfig();
+	MemberService memberService = appConfig.memberService();
 	@Test
 	void join(){
 		// given
