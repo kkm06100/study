@@ -1,9 +1,8 @@
 package com.gdsc.core1;
 
+import com.gdsc.core1.discount.DiscountPolicy;
 import com.gdsc.core1.discount.FixDiscountPolicy;
-import com.gdsc.core1.member.MemberService;
-import com.gdsc.core1.member.MemberServiceImpl;
-import com.gdsc.core1.member.MemoryMemberRepository;
+import com.gdsc.core1.member.*;
 import com.gdsc.core1.order.OrderService;
 import com.gdsc.core1.order.OrderServiceImpl;
 
@@ -12,8 +11,13 @@ public class AppConfig {
         return new MemberServiceImpl(new MemoryMemberRepository());// 생성자를 통해서 인터페이스를 상속받는 클래스를 주입받음(생성자 주입)
     }
 
+    public DiscountPolicy discountPolicy(){
+        return new FixDiscountPolicy();
+    }
+
     public OrderService orderService(){
         return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
     }
+
 
 }
