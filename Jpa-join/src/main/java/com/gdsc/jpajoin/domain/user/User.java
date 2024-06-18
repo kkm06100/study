@@ -1,6 +1,7 @@
 package com.gdsc.jpajoin.domain.user;
 
 import com.gdsc.jpajoin.domain.bestFriend.BestFriend;
+import com.gdsc.jpajoin.domain.post.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,4 +23,7 @@ public class User {
 
     @OneToOne
     private BestFriend bestFriend;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> postList;
 }
