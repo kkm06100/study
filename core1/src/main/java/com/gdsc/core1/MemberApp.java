@@ -4,10 +4,14 @@ import com.gdsc.core1.member.Grade;
 import com.gdsc.core1.member.Member;
 import com.gdsc.core1.member.MemberService;
 import com.gdsc.core1.member.MemberServiceImpl;
+import com.gdsc.core1.order.OrderService;
 
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+
         Member member = new Member(1L, "MemberA", Grade.VIP);
         memberService.join(member);
 
