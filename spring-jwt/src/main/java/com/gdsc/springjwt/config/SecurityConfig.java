@@ -1,16 +1,29 @@
 package com.gdsc.springjwt.config;
 
+import com.gdsc.springjwt.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration // 이 클래스가 스프링의 설정 클래스임을 나타낸다.
 @EnableWebSecurity // Spring Security를 활성화 한다
 public class SecurityConfig {
+    private final AuthenticationConfiguration authenticationConfiguration;
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration){
+        this.authenticationConfiguration = authenticationConfiguration;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
+        return configuration.getAuthenticationManager();
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
@@ -30,6 +43,7 @@ public class SecurityConfig {
         //기본 폼 로그인 방식을 비활성화 한다.
         http
                 .formLogin((auth)->auth.disable());
+                // UsernameAuthenticationFilter 종료
 
         //요청에 대한 관한을 설정한다.
         http
@@ -40,6 +54,9 @@ public class SecurityConfig {
                         // "/admin"이라는 경로는 역할이 "ADMIN"인 사람만 접근할 수 있다.
                         .anyRequest().authenticated());
                         // 다른 모든 요청은 인증된 사용자만 접근할 수 있다.
+        // 수정한 UserAuthenticationFilter를 연결한다.
+        http
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
 
         //세션 설정
         http
